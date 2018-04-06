@@ -1,1 +1,2 @@
 # Web-Scraper
+# Web Scraper is an application web page that scrapes news posts from StackOverflow and lets the User save and make notes on the article they want. Just enter the /scrape route then hit the button to see your articles!
