@@ -11,6 +11,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 var PORT = 3000;
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/articlescraper";
 // Initialize Express
 var app = express();
 // Configure middleware
@@ -26,7 +27,7 @@ app.set('view engine', 'handlebars');
 // By default mongoose uses callbacks for async queries, we're setting it to use promises (.then syntax) instead
 // Connect to the Mongo DB
 mongoose.Promise = Promise;
-mongoose.connect("mongodb://localhost/articlescraper", {
+mongoose.connect(MONGODB_URI, {
   useMongoClient: true
 });
 
@@ -156,3 +157,15 @@ axios.get("http://www.echojs.com/").then(function(response) {
     alert("scrape successful");
   });
 }
+
+
+var dbs = mongoose.connection;
+
+dbs.on('error', function(err) {
+  console.log('Mongoose error ' + err);
+});
+
+dbs.on('open', function() {
+
+  console.log("Mongoose connection successful.")
+})
